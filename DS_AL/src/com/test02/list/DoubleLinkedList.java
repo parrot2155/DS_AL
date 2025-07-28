@@ -49,4 +49,94 @@ public class DoubleLinkedList<E> {
 		
 		return null;	//검색 실패
 	}
+	
+	public void printCrntNode() {
+		if(isEmpty()) {
+			System.out.println("노드가 없습니다.");
+		}else {
+			System.out.println(crnt.data);
+		}
+	}
+	
+	//리스트 전체 노드 확인
+	public void dump() {
+		Node<E> ptr = head.next;
+		while(ptr != head) {
+			System.out.println(ptr.data);
+			ptr = ptr.next;
+		}
+	}
+	
+	//노드 추가
+	public void add(E obj) {
+		Node<E> node = new Node<E>(obj, crnt, crnt.next);
+		
+		crnt.next = crnt.next.prev = node;
+		crnt = node;
+	}
+	
+	public void addFirst(E obj) {
+		crnt = head;
+		add(obj);
+	}
+	//제일 뒤에 노드 추가
+	public void addLast(E obj) {
+		crnt = head.prev;
+		add(obj);
+	}
+	//노드 삭제
+	public void removeCrnt() {
+		if(!isEmpty()) {
+			crnt.prev.next = crnt.next;
+			crnt.next.prev = crnt.prev;
+			crnt = crnt.prev;
+			if(crnt==head) {
+				crnt = head.next;
+			}
+		}
+	}
+	
+	//첫번쨰 노드 삭제
+	public void removeFirst() {
+		crnt = head.next;
+		removeCrnt();
+	}
+	//마지막 노드 삭제
+	public void removeLast() {
+		crnt = head.prev;
+		removeCrnt();
+	}
+	
+	//전체 삭제
+	public void clear() {
+		while(!isEmpty()) {
+			removeCrnt();
+		}
+	}
+	
+	
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
